@@ -1,0 +1,9 @@
+{
+    "id": "foodc",
+    "name": "Food Commodities",
+    "author": "DietrichT",
+    "utility": "true",
+    "version": "0.0.1",
+    "description": "Add faction specific and general food items.\n\n Experimental build",
+    "gameVersion": "0.98a-RC5"
+}

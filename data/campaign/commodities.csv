@@ -1,0 +1,2 @@
+name,id,demand class,base price,export value,price variability,utility,origin,tags,stack size,cargo space,icon,sound id,sound id drop,order,economyTier,econUnitOrigUnused,econUnit,baseRaidDanger,eU * base value,iconWidthMult,plugin,desc
+Unit Banquet Hotpot,foodc_heghotpot,foodc_heghotpot,35,75,2,1,,"military, food",1000,1,graphics\foodc_items\foodc_heghotpot.png,ui_cargo_food,ui_cargo_food,14,1.2,500,300,MEDIUM,10500,1,,
