@@ -1,4 +1,29 @@
 id,type,text1,text2,text3,text4,text5,notes
-foodc_heghotpot,RESOURCE,"A special ration issued by Hegemony, occasionally used in celebrations or to boost morale for a short period. Some of the 
-Despite the strict manufacturing standards, all ingredients are sourced locally. Therefore, its flavour varies across different planets. Some planets are known for gamy meat and root vegetables from the incimal biosphere with an intensely hot sauce. Others prefer more carefully farmed domestic kettles and leaf vegetables with a mild, sweet taste. Even industrial worlds came up with their own recipes, with synthetic protein and vitamins matching surprisingly well with a salty stock, nurturing the heavy-duty crews.
-Serves three to four, vacuum-sealed. Heat all contents in the spherical container before serving. ",,,,,
+foodc_heghotpot,RESOURCE,"A pallet of special ration kits issued by Hegemony, occasionally used in celebrations or to boost morale for a short period.
+
+Despite the strict manufacturing standards, all ingredients are sourced locally. Therefore, its flavour varies across different planets. Some planets are known for gamy meat and root vegetables from the incimal biosphere with an intensely hot sauce. Others prefer more carefully farmed domestic kettles and leaf vegetables with a mild, sweet taste. Even industrial worlds came up with their own recipes, with synthetic protein and vitamins matching surprisingly well with a salty stock, nurturing the heavy-duty crews. This kit used to be military supply only, but now made available to civilian market as a source of extra funding. 
+
+Each kit Serves three to four. Vacuum-sealed. Heat all contents in the spherical container before serving. ",,,,,
+foodc_tritaclobster,RESOURCE,"Le Homard Bleu Impérial - Homard bleu poché au beurre Échiré de Gilead, truffe blanche de Cibola et caviar d'élevage Eochu Bres.
+The Imperial Blue Lobster - Blue Lobster Poached in Gilead Échiré Butter, Cibola White Truffle, and Eochu Bres lab-aquaculture Caviar. Come in half-cooked with a one-time-use automated cooking kit to deliver exquisite taste and juicy, tender texture on demand.
+
+This dish is an all-time favourite of the high-ranking members and once the jewel food of the sector, combining the most premium ingredients from across planets and the best craftsmanship of the sector. This dish requires careful heat management to achieve a tender yet juicy lobster texture, topped with the best dairy products for a creamy coating that gradually soaks into the tissue and lingers after a tiny bite, only then garnished with laboratory-standard caviar for extra ocean freshness. This dish is truly a self-changing art piece, offering distinct flavours and textures at different times after preparation.
+
+Unfortunately, as the sector falls into disarray, sourcing the ingredients is much more difficult than its already complicated logistical demands. Things have got even worse, as the source of Blue Lobsters is now under Sindrian Diktat control. The luxury once easily within reach has faded away in mere decades, well, at least for some up-ranking senior members and executives.  While the lives of normal employees went from having nutrient blocks from Tartusess to those from Culann, the more prominent members of the corporation are forced to endure a lowered standard of luxury, which is still luxurious.
+
+The price may be underwhelming on the datapad, almost the same as for regular foods. However, each unit contains only one serving of the dish. The shocked expressions of the captains who saw a tiny package loaded into their cargo bay are among the best entertainment for port personnel.",,,,,
+foodc_collectablebaijiu,RESOURCE,"A strong liquor from Earth, often consumed by high-ranking figures to demonstrate power and wealth. This particular batch is the collector's edition celebrating the first millennium of the Domain foundation. 
+
+The liquor is famed for its strong, unique aroma, high alcohol content, and easy-to-drink nature, and is believed to age well and last forever. This one bottle certainly outlived the colony it was brought to.",,,,,
+foodc_ludcartisian,RESOURCE,"A crate of high-quality vegetable packs from a transformed garden world.Can be consumed raw or cooked.
+
+Artistically farmed by hand, there were no gene manipulations in a laboratory, no advanced fertilisers. Through centuries of observation and manual seed selection, the products have an enhanced natural flavour that rivals the transgenetic ones. The only difference is the time taken, and time, together with belief, makes history.",,,,,
+foodc_permixspicestrew,RESOURCE,"A pallet of frozen prepackaged spiced stew with optional seasoning sachets attached. Needs to be heated before consumption.
+
+After a long argument over which house has the best cuisine, the important figures of the Pesean League declared that the capital's cuisine is the official style of cuisine. Still, it is widely disregarded by the sector as it looks terrible and tastes bad. The everyday folks found a concession: an almost-lost recipe for spiced stew from the dommed planet that can be added to with anything and still tastes alright. The dish quickly became very popular among the Persean League. People often find themselves with one of the stew packs when reminiscing about their past, alone or in a group.
+
+
+“Yeah, a stew from a doomed planet tastes better than the capital ones. ” —Anonymous Citizen",,,,,
+foodc_pirfoodmix,RESOURCE,"Crates of food and additives from pirate worlds. Not sure if they are really vacuum-sealed as they claimed to be.
+
+“Blast” Mix-them-All, or “B’maxel” for short, is a popular dish in pirate worlds, made from any available ingredients mixed with strong spices. It can be served straight from the pack or prepared. Pirate worlds and ships are often noisy, chaotic and violent. To suppress sensory overload from the surroundings, the taste of their food must be overwhelming, sharp, and immediate. The intense heat from the food shifts attention to oneself for a short moment before routine actions resume.",,,,,
