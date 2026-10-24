@@ -152,6 +152,13 @@ foodc.econ.FoodcMarketInstaller - Central Kitchens installed on N markets.
 
 If a commodity or the industry spec is missing, the log says so explicitly instead.
 
+## License
+
+- **Code** (`src/`, and the compiled `jars/FoodCommodities.jar`) is released under the MIT License — see `LICENSE`.
+- **Artwork** (`graphics/`) and the written commodity descriptions are licensed CC BY-NC-SA 4.0: credit the author, don't sell them, and share derivatives under the same terms.
+
+In practice: fork it, change the numbers, rip out the parts you don't like. A message saying you did would be appreciated, and please credit the original — but that is a courtesy request, not a condition of the MIT license.
+
 ## Credits
 
 Author: DietrichT.
