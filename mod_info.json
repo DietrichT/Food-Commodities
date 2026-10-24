@@ -2,8 +2,11 @@
     "id": "foodc",
     "name": "Food Commodities",
     "author": "DietrichT",
-    "utility": "true",
-    "version": "0.0.1",
-    "description": "Add faction specific and general food items.\n\n Experimental build",
-    "gameVersion": "0.98a-RC5"
+    "version": "0.1.0",
+    "description": "Adds faction specific and general food commodities, plus the Central Kitchen industry that produces, imports, and distributes them across the sector.\n\nExperimental build",
+    "gameVersion": "0.98a-RC8",
+    "jars": [
+        "jars/FoodCommodities.jar"
+    ],
+    "modPlugin": "foodc.FoodcModPlugin"
 }

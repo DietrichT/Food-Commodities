@@ -1,0 +1,4 @@
+id,name,cost mult,build time,income,upkeep,downgrade,upgrade,tags,data,image,plugin,desc,order,disruptDanger
+foodc_central_kitchen,Central Kitchen,40,90,4,3,,,"structure, rural",,graphics/industries/foodc_tritacfoodproducer.png,foodc.econ.CentralKitchen,"A sealed-kitchen works that turns local produce, imported delicacies, and a great deal of institutional stubbornness into whatever food this world is known for. What comes out depends on who runs the colony: Hegemony ration kits, Tri-Tachyon luxury seafood, Persean stew packs, pirate spice mix, or hand-farmed artisanal produce. The other factions' specialties are imported for the tables of officers and executives. Built as a structure, so it does not take up an industry slot.
+
+A shortage of any ingredient cuts into production.",1500,MEDIUM
