@@ -1,8 +1,8 @@
 # Food Commodities
 
-A Starsector 0.98a mod that adds faction-flavoured food commodities and the **Central Kitchen**, a structure industry that produces, imports and distributes them across the sector.
+A Starsector 0.98a mod that adds faction-flavoured food commodities and the **Central Kitchen**, a structure industry that produces them, plus the **Consumer Market** that buys them.
 
-Version 0.1.0 — experimental build.
+Version 0.2.0 — experimental build.
 
 ## Requirements
 
@@ -24,9 +24,9 @@ All six have codex descriptions in `data/strings/descriptions.csv`.
 
 ## Central Kitchen
 
-`foodc_central_kitchen` — tagged `structure`, so it **does not use up an industry slot** (the same way a Waystation doesn't). Available to the player on any colony of size 3 or larger.
+`foodc_central_kitchen` — tagged `structure`, so it **does not use up an industry slot** (the same way a Waystation doesn't). Buildable by the player on any colony with a population industry.
 
-It produces the specialty of the faction that owns the market:
+It produces the specialty of the faction that owns the market **at the moment the industry is created**, and keeps making it from then on — capturing a world does not change what its kitchen produces. A kitchen built later on a new colony follows whoever founds that colony.
 
 | Faction | Produces |
 |---|---|
@@ -39,15 +39,17 @@ It produces the specialty of the faction that owns the market:
 ### Output
 
 ```
-units = max(1, round(((market size - 1) + farmland bonus) / divisor))
+units = max(1, round(((market size - 1) + farmland bonus) / divisor)) * size mult
 ```
 
 - `farmland bonus` is +1 on `farmland_rich` / `farmland_bountiful`
 - `divisor` is 1.5, and 1.8 for the blue lobster dish
+- `size mult` is `market size / 2`: **x2 on size 4-5, x3 on size 6-7, x4 on size 8-9**
+- the same `size mult` applies to every ingredient below, so the recipe ratios stay the same
 
 ### Inputs
 
-Each specialty has its own recipe; a shortage of any ingredient cuts into production.
+Each specialty has its own recipe; a shortage of any ingredient cuts into production. The Central Kitchen does not create any other demand — the buying side comes from the Consumer Market.
 
 | Produces | Requires |
 |---|---|
@@ -65,17 +67,37 @@ Ingredient quantities scale with market size:
 | domestic goods, luxury goods | `max(1, (size - 4) / 2)` |
 | lobster, Artisian Organic Food | `max(1, (size - 5) / 2)` |
 
-On top of that, markets of size 6 or larger import the other factions' specialties — one unit each, except baijiu — so the goods keep moving between factions instead of piling up where they are made.
 
-### Where kitchens appear
+## Consumer Market
 
-On a new game (and once on an existing save) the mod adds a Central Kitchen to every non-player market that:
+`foodc_consumer_market` — the demand side of the loop. Also tagged `structure` (no industry slot), present on every colony, and **not buildable** by the player: it is a background abstraction, not a choice.
 
-- has a population industry,
-- is size 4 or larger,
-- has farming, aquaculture or light industry.
+It is created automatically:
 
-This runs once per save and is tracked in the sector memory (`$foodc.centralKitchensInstalled`), so it never re-adds an industry the player removed.
+- on every existing colony the first time the mod runs on a save (NPC and player alike, size 3 or larger, any market with a population industry);
+- on any new colony the moment it is founded, through a `PlayerColonizationListener`, so a fresh player colony gets one immediately without waiting for a reload.
+
+It keeps a standing demand for all five foods, scaled by colony size:
+
+| Colony size | Demand per food |
+|---|---|
+| 3 | 1 |
+| 4 | 1.5 |
+| 5 | 2 |
+| 6 | 3 |
+| 7 | 4 |
+| 8 | 5 |
+
+Stability follows what is actually on the shelves: **+1** while the four everyday foods are available, **+2** if the lobster dish is available as well, and nothing if the basics are missing. Because the lobster dish is only made in Tri-Tachyon space, the full +2 is genuinely hard to earn elsewhere.
+
+## What gets added automatically
+
+On a new game — and once on an existing save — the mod adds:
+
+- a **Central Kitchen** to every non-player market that has a population industry, is size 4 or larger, and has farming, aquaculture or light industry;
+- a **Consumer Market** to every market with a population industry, size 3 or larger, player-owned included.
+
+Each pass is tracked separately in sector memory (`$foodc.centralKitchensInstalled`, `$foodc.consumerMarketsInstalled`), so the mod never re-adds an industry the player removed, and adding the Consumer Market later still works on saves that already had kitchens.
 
 ## Baijiu: salvage only
 
@@ -116,8 +138,10 @@ Food Commodities/
 ├── jars/FoodCommodities.jar
 ├── src/foodc/
 │   ├── FoodcModPlugin.java           entry point, startup self-check
+│   ├── FoodcColonizationListener.java gives new colonies a Consumer Market
 │   └── econ/
 │       ├── CentralKitchen.java       industry behaviour: output, recipes, imports
+│       ├── ConsumerMarket.java       background demand for the mod's foods
 │       ├── FoodcFoods.java           commodity ids and faction -> specialty map
 │       └── FoodcMarketInstaller.java seeds kitchens on NPC markets, once per save
 ├── data/
@@ -147,7 +171,9 @@ On startup the log (`starsector.log`) shows a self-check:
 foodc.FoodcModPlugin - commodity ok: foodc_heghotpot (Unit Banquet Hotpot, base price 35)
 ...
 foodc.FoodcModPlugin - industry ok: foodc_central_kitchen (Central Kitchen, plugin foodc.econ.CentralKitchen)
+foodc.FoodcModPlugin - industry ok: foodc_consumer_market (Consumer Market, plugin foodc.econ.ConsumerMarket)
 foodc.econ.FoodcMarketInstaller - Central Kitchens installed on N markets.
+foodc.econ.FoodcMarketInstaller - Consumer Markets installed on M markets.
 ```
 
 If a commodity or the industry spec is missing, the log says so explicitly instead.

@@ -6,6 +6,7 @@ import com.fs.starfarer.api.campaign.econ.CommoditySpecAPI;
 import com.fs.starfarer.api.loading.IndustrySpecAPI;
 
 import foodc.econ.CentralKitchen;
+import foodc.econ.ConsumerMarket;
 import foodc.econ.FoodcFoods;
 import foodc.econ.FoodcMarketInstaller;
 
@@ -14,6 +15,9 @@ import org.apache.log4j.Logger;
 public class FoodcModPlugin extends BaseModPlugin {
 
     private static final Logger LOG = Global.getLogger(FoodcModPlugin.class);
+
+    /** Kept around so repeated loads do not register duplicate listeners. */
+    private static final FoodcColonizationListener COLONIZATION_LISTENER = new FoodcColonizationListener();
 
     @Override
     public void onApplicationLoad() {
@@ -36,6 +40,14 @@ public class FoodcModPlugin extends BaseModPlugin {
             LOG.info("industry ok: " + industry.getId()
                     + " (" + industry.getName() + ", plugin " + industry.getPluginClass() + ")");
         }
+
+        IndustrySpecAPI consumer = Global.getSettings().getIndustrySpec(ConsumerMarket.ID);
+        if (consumer == null) {
+            LOG.error("industry spec not found: " + ConsumerMarket.ID);
+        } else {
+            LOG.info("industry ok: " + consumer.getId()
+                    + " (" + consumer.getName() + ", plugin " + consumer.getPluginClass() + ")");
+        }
     }
 
     @Override
@@ -45,6 +57,9 @@ public class FoodcModPlugin extends BaseModPlugin {
 
     @Override
     public void onGameLoad(boolean newGame) {
+        if (!Global.getSector().getListenerManager().hasListener(COLONIZATION_LISTENER)) {
+            Global.getSector().getListenerManager().addListener(COLONIZATION_LISTENER);
+        }
         // covers saves created before the mod was enabled
         FoodcMarketInstaller.installOnce();
     }

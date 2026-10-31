@@ -23,12 +23,23 @@ public class CentralKitchen extends BaseIndustry {
     /** Output is divided by this before it hits the market. */
     public static final float OUTPUT_DIVISOR = 1.5f;
 
+    /**
+     * Fixed the first time the industry is applied, then carried in the save:
+     * a captured market keeps making what its kitchen was built to make, no
+     * matter who owns it afterwards.
+     */
+    private String specialtyId;
+
     @Override
     public void apply() {
         super.apply(true);
 
         int size = market.getSize();
-        String specialty = FoodcFoods.getSpecialty(market.getFactionId());
+        if (specialtyId == null) {
+            specialtyId = FoodcFoods.getSpecialty(market.getFactionId());
+        }
+        String specialty = specialtyId;
+        int mult = Math.max(1, size / 2); // size 4-5 -> x2, 6-7 -> x3, 8-9 -> x4
 
         // output
         float raw = size - 1;
@@ -40,23 +51,15 @@ public class CentralKitchen extends BaseIndustry {
         if (FoodcFoods.TRITACH_LOBSTER.equals(specialty)) {
             divisor *= 1.2f; // the blue lobster dish is scarcer than the rest
         }
-        supply(specialty, Math.max(1, Math.round(raw / divisor)));
+        supply(specialty, Math.max(1, Math.round(raw / divisor)) * mult);
 
-        // production inputs depend on what this kitchen makes
+        // production inputs, scaled the same way as the output
         List<String> inputs = getInputs(specialty);
         for (String commodityId : inputs) {
-            demand(commodityId, getInputAmount(commodityId, size));
+            demand(commodityId, getInputAmount(commodityId, size) * mult);
         }
 
-        // imported delicacies - anything not already bought in as an ingredient
-        for (String food : FoodcFoods.ALL) {
-            if (food.equals(specialty)) continue;
-            if (food.equals(FoodcFoods.BAIJIU)) continue; // salvage-only, nobody orders it in
-            if (inputs.contains(food)) continue;
-            demand(food, size >= 6 ? 1 : 0);
-        }
-
-        Pair<String, Integer> deficit = getMaxDeficit(inputs.toArray(new String[0]));
+        Pair<String, Integer> deficit = FoodcFoods.maxDeficit(this, inputs.toArray(new String[0]));
         applyDeficitToProduction(1, deficit, specialty);
 
         if (!isFunctional()) {
@@ -101,13 +104,12 @@ public class CentralKitchen extends BaseIndustry {
 
     @Override
     public boolean isAvailableToBuild() {
-        return super.isAvailableToBuild() && market.getSize() >= 3;
+        return super.isAvailableToBuild();
     }
 
     @Override
     public String getUnavailableReason() {
-        if (!super.isAvailableToBuild()) return super.getUnavailableReason();
-        return "Requires a colony of size 3 or larger";
+        return super.getUnavailableReason();
     }
 
     @Override
